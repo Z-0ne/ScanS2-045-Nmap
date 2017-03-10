@@ -39,61 +39,61 @@ action = function(host, port)
 	  -- exclude index "php default phpinfo() page"
 	  if string.find(response.body, "phpinfo") == nil then
 		--response: 0000   53 74 72 75 74 73 32 53 32 30 34 35 43 68 65 63  Struts2S2045Chec
-        --          0010   6b 73 21 21 21                                   ks!!!
+                --          0010   6b 73 21 21 21                                   ks!!!
 	    if #response.body == 21 then
-		  output["status"] = "S2-045-AChecks vuln21"
+              output["status"] = "S2-045-AChecks vuln21"
 	      return output
 		--response: 0000   53 74 72 75 74 73 32 53 32 30 34 35 43 68 65 63  Struts2S2045Chec
-        --          0010   6b 73 21 21 21 0a                                ks!!!.
-		elseif #response.body == 22 then
-		  output["status"] = "S2-045-AChecks vuln22"
-		  return output
+                --          0010   6b 73 21 21 21 0a                                ks!!!.
+            elseif #response.body == 22 then
+              output["status"] = "S2-045-AChecks vuln22"
+	      return output
 		--response: 0000   53 74 72 75 74 73 32 53 32 30 34 35 43 68 65 63  Struts2S2045Chec
-        --          0010   6b 73 21 21 21 0d 0a                             ks!!!..
-		elseif #response.body == 23 then
-		  output["status"] = "S2-045-AChecks vuln23"
-		  return output
-		elseif  #response.body < 50 then 
-		  output["status"] = "S2-045-AChecks"
-		  output["resplength"] = #response.body
-		  return output
-		else
-		  output["status"] = "S2-045-AChecks lengtherror"
-		  output["resplength"] = #response.body
-		  return output
-		end
+                --          0010   6b 73 21 21 21 0d 0a                             ks!!!..
+            elseif #response.body == 23 then
+              output["status"] = "S2-045-AChecks vuln23"
+	      return output
+            elseif  #response.body < 50 then 
+              output["status"] = "S2-045-AChecks"
+              output["resplength"] = #response.body
+              return output
+            else
+              output["status"] = "S2-045-AChecks lengtherror"
+              output["resplength"] = #response.body
+              return output
+            end
 	  end
 	end
   end
   if response.status == 302 then
     if response.location then
-	  local parseurl = http.parse_url(response.location[#response.location])
+      local parseurl = http.parse_url(response.location[#response.location])
     --fix location http://127.0.0.1/login.action to http://host:port/uri
       local response = http.get(parseurl.host,port,parseurl.path,options)
-	  if response.status == 200 then
-	    if string.find(response.body, "Struts2S2045Checks") ~= nil then
-		  if string.find(response.body, "phpinfo") == nil then
-		    if #response.body == 21 then
-			  output["status"] = "S2-045-BChecks vuln21"
+      if response.status == 200 then
+        if string.find(response.body, "Struts2S2045Checks") ~= nil then
+          if string.find(response.body, "phpinfo") == nil then
+            if #response.body == 21 then
+              output["status"] = "S2-045-BChecks vuln21"
               return output
-			elseif #response.body == 22 then
-			  output["status"] = "S2-045-BChecks vuln22"
-			  return output
-			elseif #response.body == 23 then
-			  output["status"] = "S2-045-BChecks vuln23"
-			  return output
-			elseif  #response.body < 50 then
-			  output["status"] = "S2-045-BChecks"
-			  output["resplength"] = #response.body
-			  return output
-			else
+            elseif #response.body == 22 then
+              output["status"] = "S2-045-BChecks vuln22"
+              return output
+            elseif #response.body == 23 then
+              output["status"] = "S2-045-BChecks vuln23"
+              return output
+            elseif  #response.body < 50 then
+              output["status"] = "S2-045-BChecks"
+              output["resplength"] = #response.body
+              return output
+            else
               output["status"] = "S2-045-BChecks lengtherror"
               output["resplength"] = #response.body
-			  return output
+              return output
             end			  
-		  end
-		end
-	  end
+          end
+        end
+      end
     end
   end
   -- Debug 
