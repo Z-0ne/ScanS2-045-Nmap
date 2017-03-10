@@ -13,3 +13,5 @@ Struts2 S2-045 Nmap Scan Script
 1、copy struts2-scan.nse to nmap script folder
 
 2、run `nmap -script struts2-scan -sS -p 80,8080,81,82,83,84,85,86,87,88,8888,8088 -n -d ip -oX outscan.xml`
+# Risk Awareness Report
+[Struts2 S2-045 Risk Awareness Report](http://plcscan.org/blog/2017/03/struts2-s2-045-risk-awareness-report-from-beaconlab/)
