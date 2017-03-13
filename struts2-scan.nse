@@ -65,7 +65,7 @@ action = function(host, port)
 	  end
 	end
   end
-  if response.status == 302 then
+  if response.status == 302 or response.status == 301 then
     if response.location then
       local parseurl = http.parse_url(response.location[#response.location])
     --fix location http://127.0.0.1/login.action to http://host:port/uri
